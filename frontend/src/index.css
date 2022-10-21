@@ -1,3 +1,11 @@
 .todo{
   height: 100vh;
 }
+
+.slide{
+  margin-top: 10px;
+}
+
+.slide img{
+  height: 75vh;
+}
