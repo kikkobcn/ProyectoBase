@@ -17,7 +17,7 @@ export const Header = () => {
               height="60"
               className="d-inline-block align-middle"
             />{' '}
-            Proyecto Ethereum
+            Build Private Ethereum Network
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
