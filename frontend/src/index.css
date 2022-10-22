@@ -7,5 +7,9 @@
 }
 
 .slide img{
-  height: 75vh;
+  height: 50vh;
+}
+
+.card-header {
+   background-color: rgb(76, 164, 224); 
 }
