@@ -43,14 +43,12 @@ export const HomeBody = () => {
                     </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>
-            <div className="container mt-3 py-5">
-                <h4>Planes</h4>
-            </div>
-            <div className="container text-center">
+            <div className="container my-5 text-center">
+                <h4 className='display-5 text-light'>Planes</h4>
                 <div className="row row-cols-1 row-cols-md-3">
                     <div className="col mb-3">
                         <div className="card shadow-lg">
-                            <div className="card-header">
+                            <div className="card-header text-light">
                                 <h5>Gratuito</h5>
                             </div>
                             <div className="card-body">
@@ -66,7 +64,7 @@ export const HomeBody = () => {
                     </div>
                     <div className="col mb-3">
                         <div className="card shadow-sm">
-                            <div className="card-header">
+                            <div className="card-header text-light">
                                 <h5>Profesional</h5>
                             </div>
                             <div className="card-body">
@@ -82,7 +80,7 @@ export const HomeBody = () => {
                     </div>
                     <div className="col mb-3">
                         <div className="card shadow-lg">
-                            <div className="card-header">
+                            <div className="card-header text-light">
                                 <h5>Empresa</h5>
                             </div>
                             <div className="card-body">
