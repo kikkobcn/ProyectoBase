@@ -10,15 +10,19 @@ module.exports = router
 
 const PASSWORD = "123456"
 const BALANCE = "0x200000000000000000000000000000000000000000000000000000000000000"
-const MICUENTA = "704765a908962e25626f2bea8cdf96c84dedaa0b"
+const MICUENTA = "BEb2f649a3A14866D06D41Baaba7Db25b7638B0E"                     //Account 1 Goerli 
 
+//Funcion para definir parametros para el lanzamiento nodo  -------------------------------------------
 function launchNode(NUMERO_NETWORK, NUMERO_NODO, DIR_NODE, NETWORK_DIR,
     IPCPATH, NETWORK_CHAINID, HTTP_PORT, CUENTA, PORT,
     AUTHRPC_PORT, BALANCE,
     CUENTAS_ALLOC) {
 
+        //Variables para lanzar el procesos en detached desde el Web Server
     const out2 = fs.openSync(`./${DIR_NODE}/outNodo.log`, 'a');
     const err2 = fs.openSync(`./${DIR_NODE}/outNodo.log`, 'a');
+
+
     const params = [
         "--networkid", NETWORK_CHAINID,
         '--mine',
@@ -33,7 +37,7 @@ function launchNode(NUMERO_NETWORK, NUMERO_NODO, DIR_NODE, NETWORK_DIR,
         '--nodiscover',
         '--trace', `${DIR_NODE}/trace.txt`
     ]
-
+        //Definicion objeto nodo para guardar todos sus datos
     const nodo = {
         network: NUMERO_NETWORK,
         nodo: NUMERO_NODO,
@@ -48,18 +52,20 @@ function launchNode(NUMERO_NETWORK, NUMERO_NODO, DIR_NODE, NETWORK_DIR,
         prefund: BALANCE
 
     }
+        //Spawn(ejecucion) del comando geth para el lanzamiento del nodo
     const subproceso2 = spawn('geth', params, { detached: true, stdio: ['ignore', out2, err2] });
     fs.writeFileSync(`${DIR_NODE}/paramsNodo.json`, JSON.stringify({ nodo, subproceso: subproceso2 }, null, 4))
     subproceso2.unref();
     return { nodo, subproceso: subproceso2 }
 }
+//---------------------------------------------------------------------------------------------------
 
 function generateParameter(network, node) {
     const NUMERO_NETWORK = parseInt(network)
     const NUMERO_NODO = parseInt(node)
     const NODO = `nodo${NUMERO_NODO}`
     const NETWORK_DIR = `ETH/eth${NUMERO_NETWORK}`
-    const NETWORK_CHAINID = 333444 + NUMERO_NETWORK
+    const NETWORK_CHAINID = 98765 + NUMERO_NETWORK
 
     const HTTP_PORT = 9545 + NUMERO_NODO + NUMERO_NETWORK * 20
     const DIR_NODE = `${NETWORK_DIR}/${NODO}`
@@ -82,15 +88,19 @@ function deleteIfExists(path) {
         fs.rmdirSync(path, { recursive: true, })
 }
 
+//Creaccion cuenta selladora(que firma la transaccion)  ---------------------------------------------
 function createAccount(DIR_NODE) {
     fs.writeFileSync(`${DIR_NODE}/pwd`, PASSWORD)
     execSync(`geth  --datadir ${DIR_NODE}  account new --password ${DIR_NODE}/pwd`)
 
-    // pillamos el address que hemos creado 
+    // Cogemos el address que acabamos de crear 
     const lista = fs.readdirSync(`${DIR_NODE}/keystore`)
     const CUENTA = JSON.parse(fs.readFileSync(`${DIR_NODE}/keystore/${lista[0]}`).toString()).address
     return CUENTA
 }
+//---------------------------------------------------------------------------------------------------
+
+//Creaccion file genesis.json desde la plantilla genesisbase.json  ----------------------------------
 function generateGenesis(NETWORK_CHAINID, CUENTA, BALANCE, CUENTAS_ALLOC, NETWORK_DIR) {
     const timestamp = Math.round(((new Date()).getTime() / 1000)).toString(16)
     // leemos la plantilla del genesis
@@ -100,16 +110,17 @@ function generateGenesis(NETWORK_CHAINID, CUENTA, BALANCE, CUENTAS_ALLOC, NETWOR
     genesis.config.chainId = NETWORK_CHAINID
     genesis.extraData = `0x${'0'.repeat(64)}${CUENTA}${'0'.repeat(130)}`
 
-
     genesis.alloc = CUENTAS_ALLOC.reduce((acc, item) => {
         acc[item] = { balance: BALANCE }
         return acc
     }, {})
 
-
     fs.writeFileSync(`${NETWORK_DIR}/genesis.json`, JSON.stringify(genesis))
-
 }
+//-----------------------------------------------------------------------------------------------------
+
+//+++++++++++++++++++++ R U T A S +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    //Creaccion red/nodo------------------------------------------------------------
 router.post("/create/:network/:node", (req, res) => {
     const NUMERO_NETWORK = parseInt(req.params.network)
     const NUMERO_NODO = parseInt(req.params.node)
@@ -128,7 +139,7 @@ router.post("/create/:network/:node", (req, res) => {
         MICUENTA
 
     ]
-
+    //LLama a la funcion de creaccion genesis.json(igual para todos los nodos)
     generateGenesis(NETWORK_CHAINID, CUENTA, BALANCE, CUENTAS_ALLOC, NETWORK_DIR)
 
     // INICIALIZAMOS EL NODO
@@ -147,9 +158,10 @@ router.post("/create/:network/:node", (req, res) => {
         res.send(resultado)
     })
 
-
 })
+//--------------------------------------------------------------------------------------------
 
+    //Se añade un nodo a la red ---------------------------------------------------------------
 router.post("/add/:network/:node", (req, res) => {
 
     const NUMERO_NETWORK = parseInt(req.params.network)
@@ -181,7 +193,9 @@ router.post("/add/:network/:node", (req, res) => {
     })
 
 })
+//-------------------------------------------------------------------------------------------------
 
+//Delete de una red -------------------------------------------------------------------------------
 router.delete("/:network", (req, res) => {
     const NUMERO_NETWORK = parseInt(req.params.network)
     const NETWORK_DIR = `ETH/eth${NUMERO_NETWORK}`
@@ -208,13 +222,15 @@ router.delete("/:network", (req, res) => {
 
     res.send({ network: req.params.network })
 })
+//-------------------------------------------------------------------------------------------------
 
+    //Reload del procesos para que todos los nodos creados se comuniquen entre ellos
 router.get("/reload/:network", (req, res) => {
     const NUMERO_NETWORK = parseInt(req.params.network)
     const NETWORK_DIR = `ETH/eth${NUMERO_NETWORK}`
-    // los directorios
+    // Leo todos los directorios de la red
     const nodos = fs.readdirSync(NETWORK_DIR, { withFileTypes: true })
-        .filter(i => !i.isFile())
+        .filter(i => !i.isFile())  //Si son ficheros no se leen
     // los datos de los nodos
     const data = nodos.map(i =>
         JSON.parse(fs.readFileSync(`${NETWORK_DIR}/${i.name}/paramsNodo.json`)))
