@@ -1,3 +1,9 @@
+.contenedor{
+  border: 5px solid;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
 .area{
   background-image: linear-gradient(to right, #2c3e50, #4ca1af);
   width: 100%;
@@ -23,4 +29,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.network-container{
+  border: 1px solid;
+  border-radius: 10px;
+  border-color: white;
+}
+
+#networks-table {
+    color: aliceblue;
 }

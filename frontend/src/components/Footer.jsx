@@ -6,7 +6,7 @@ export const Footer = () =>{
 
   return (
 <Container className='bg-dark'>
-  <Row className='mt-4'>
+  <Row className='justify-content-center'>
     <Col className='col-footer'>
       <a href="https://facebook.com" className="btn rrss btn-sm text-light"  role="button" aria-disabled="true"><i className="bi bi-facebook"></i></a>
       <a href="https://instagram.com" className="btn rrss btn-sm text-light" role="button" aria-disabled="true"><i className="bi bi-instagram"></i></a>
@@ -28,11 +28,6 @@ export const Footer = () =>{
         </div>
     </Col>
     
-  </Row>
-  <Row>
-    <Col>1 of 3</Col>
-    <Col>2 of 3</Col>
-    <Col>3 of 3</Col>
   </Row>
 </Container>
   )

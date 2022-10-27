@@ -44,53 +44,55 @@ export const HomeBody = () => {
                 </Carousel.Item>
             </Carousel>
             <div className="container my-5 text-center">
-                <h4 className='display-5 text-light'>Planes</h4>
-                <div className="row row-cols-1 row-cols-md-3">
-                    <div className="col mb-3">
-                        <div className="card shadow-lg">
-                            <div className="card-header text-light">
-                                <h5>Gratuito</h5>
-                            </div>
-                            <div className="card-body">
-                                <h4>0€ <small className="text-muted">/mes</small></h4>
-                                <ul className="list-unstyled mt-3 mb-4">
-                                    <li>1 red privada</li>
-                                    <li>3 nodos/red</li>
-                                    <li>Soporte 24h</li>
-                                </ul>
-                                <button className="btn btn-outline-primary">Inscribirme</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col mb-3">
-                        <div className="card shadow-sm">
-                            <div className="card-header text-light">
-                                <h5>Profesional</h5>
-                            </div>
-                            <div className="card-body">
-                                <h4>10€ <small className="text-muted">/mes</small></h4>
-                                <ul className="list-unstyled mt-3 mb-4">
-                                    <li>5 redes privadas</li>
-                                    <li>10 nodos/red</li>
-                                    <li>Soporte 24h</li>
-                                </ul>
-                                <button className="btn btn-outline-primary">Comenzar</button>
+                <div className='network-container bg-dark p-3'>
+                    <h1 className='display-5 mb-3 text-light'>Planes</h1>
+                    <div className="row row-cols-1 row-cols-md-3">
+                        <div className="col mb-3">
+                            <div className="card shadow-lg">
+                                <div className="card-header text-light">
+                                    <h5>Gratuito</h5>
+                                </div>
+                                <div className="card-body">
+                                    <h4>0€ <small className="text-muted">/mes</small></h4>
+                                    <ul className="list-unstyled mt-3 mb-4">
+                                        <li>1 red privada</li>
+                                        <li>3 nodos/red</li>
+                                        <li>Soporte 24h</li>
+                                    </ul>
+                                    <button className="btn btn-outline-primary">Inscribirme</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="col mb-3">
-                        <div className="card shadow-lg">
-                            <div className="card-header text-light">
-                                <h5>Empresa</h5>
+                        <div className="col mb-3">
+                            <div className="card shadow-sm">
+                                <div className="card-header text-light">
+                                    <h5>Profesional</h5>
+                                </div>
+                                <div className="card-body">
+                                    <h4>10€ <small className="text-muted">/mes</small></h4>
+                                    <ul className="list-unstyled mt-3 mb-4">
+                                        <li>5 redes privadas</li>
+                                        <li>10 nodos/red</li>
+                                        <li>Soporte 24h</li>
+                                    </ul>
+                                    <button className="btn btn-outline-primary">Comenzar</button>
+                                </div>
                             </div>
-                            <div className="card-body">
-                                <h4>25€ <small className="text-muted">/mes</small></h4>
-                                <ul className="list-unstyled mt-3 mb-4">
-                                    <li>20 redes privadas</li>
-                                    <li>20 nodos/red</li>
-                                    <li>Soporte 24h</li>
-                                </ul>
-                                <button className="btn btn-outline-primary">Comenzar</button>
+                        </div>
+                        <div className="col mb-3">
+                            <div className="card shadow-lg">
+                                <div className="card-header text-light">
+                                    <h5>Empresa</h5>
+                                </div>
+                                <div className="card-body">
+                                    <h4>25€ <small className="text-muted">/mes</small></h4>
+                                    <ul className="list-unstyled mt-3 mb-4">
+                                        <li>20 redes privadas</li>
+                                        <li>20 nodos/red</li>
+                                        <li>Soporte 24h</li>
+                                    </ul>
+                                    <button className="btn btn-outline-primary">Comenzar</button>
+                                </div>
                             </div>
                         </div>
                     </div>
