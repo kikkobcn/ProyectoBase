@@ -3,24 +3,13 @@ import { Footer } from "./components/Footer"
 import { Outlet } from "react-router-dom"
 export const Home = () =>{
     return (
-    <div className="container d-flex flex-column justify-content-between context">
+    <div className="container d-flex flex-column justify-content-between">
         <Header>Header</Header>
         <div className="flex-grow-1 area">
-            <Outlet></Outlet>
-            <ul class="circles">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
+            <Outlet></Outlet>  
         </div>
         <Footer>Footer</Footer>
-        </div>
+    </div>
+    
     )
 }
