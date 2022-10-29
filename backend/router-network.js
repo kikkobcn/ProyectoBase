@@ -10,8 +10,8 @@ module.exports = router
 
 const PASSWORD = "123456"
 const BALANCE = "0x200000000000000000000000000000000000000000000000000000000000000"
-const MICUENTA = "BEb2f649a3A14866D06D41Baaba7Db25b7638B0E"                     //Account 1 Goerli 
-
+const MICUENTA = "BEb2f649a3A14866D06D41Baaba7Db25b7638B0E"    //Account 1 Goerli
+ 
 //Funcion para definir parametros para el lanzamiento nodo  -------------------------------------------
 function launchNode(NUMERO_NETWORK, NUMERO_NODO, DIR_NODE, NETWORK_DIR,
     IPCPATH, NETWORK_CHAINID, HTTP_PORT, CUENTA, PORT,
@@ -21,8 +21,6 @@ function launchNode(NUMERO_NETWORK, NUMERO_NODO, DIR_NODE, NETWORK_DIR,
         //Variables para lanzar el procesos en detached desde el Web Server
     const out2 = fs.openSync(`./${DIR_NODE}/outNodo.log`, 'a');
     const err2 = fs.openSync(`./${DIR_NODE}/outNodo.log`, 'a');
-
-
     const params = [
         "--networkid", NETWORK_CHAINID,
         '--mine',
@@ -65,10 +63,10 @@ function generateParameter(network, node) {
     const NUMERO_NODO = parseInt(node)
     const NODO = `nodo${NUMERO_NODO}`
     const NETWORK_DIR = `ETH/eth${NUMERO_NETWORK}`
-    const NETWORK_CHAINID = 98765 + NUMERO_NETWORK
-
+    const NETWORK_CHAINID = 990111 + NUMERO_NETWORK
     const HTTP_PORT = 9545 + NUMERO_NODO + NUMERO_NETWORK * 20
     const DIR_NODE = `${NETWORK_DIR}/${NODO}`
+    //cambiamos el pipe para que todos los nodos puedan ser inicializados
     const IPCPATH = `\\\\.\\pipe\\${NETWORK_CHAINID}-${NODO}.ipc`
     const PORT = 30404 + NUMERO_NODO + NUMERO_NETWORK * 20
     const AUTHRPC_PORT = 9553 + NUMERO_NODO + NUMERO_NETWORK * 20
@@ -283,5 +281,33 @@ router.get("/procesos/:network", async (req, res) => {
     const NETWORK_DIR = `ETH/eth${NUMERO_NETWORK}`
     const nodos = fs.readdirSync(NETWORK_DIR, { withFileTypes: true }).filter(i => !i.isFile())
     const output = nodos.map(i => JSON.parse(fs.readFileSync(`${NETWORK_DIR}/${i.name}/paramsNodo.json`)))
+    res.send(output)
+})
+
+// Listado redes
+router.get("/", async (req, res) => {
+    // const NETWORK_DIR = "ETH"
+    const redes = fs.readdirSync("ETH", { withFileTypes: true }).filter(i => !i.isFile())
+    const output = redes.map(i => {
+        const genesis = JSON.parse(fs.readFileSync(`ETH/${i.name}/genesis.json`))
+        const cuentas =Object.keys(genesis.alloc)
+        return {numero: i.name, chainId: genesis.config.chainId, cuentas: cuentas }
+    })
+    res.send(output)
+})
+
+
+//Llamamos a una red en concreto
+router.get("/:network", async (req, res) => {
+    const NUMERO_NETWORK = parseInt(req.params.network)
+    const NETWORK_DIR = `ETH/eth${NUMERO_NETWORK}`
+    const nodos = fs.readdirSync(NETWORK_DIR, { withFileTypes: true }).filter(i => !i.isFile())
+    console.log(nodos);
+    const output = nodos.map(i => {
+        const paramsNodo = JSON.parse(fs.readFileSync(`${NETWORK_DIR}/${i.name}/paramsNodo.json`))
+        return {
+            numeroRed: paramsNodo.nodo.network, chainId: paramsNodo.nodo.chainId,numeroNodo: paramsNodo.nodo.nodo, puerto: paramsNodo.nodo.http_port
+        }
+    })
     res.send(output)
 })
