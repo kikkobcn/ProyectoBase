@@ -24,11 +24,19 @@ export function Form_add_network() {
           onChange={(e) => setNode(e.target.value)}
         />
       </label>
+      <label>
+        Enter metamask address without 0x:
+        <input
+          type="text"
+          value={metamaskid}
+          onChange={(e) => setNode(e.target.value)}
+        />
+      </label>
       <div>
         <button> Send Now</button>
       </div>
     </form>
-    // <form action="http://localhost:3333/network/create/7777/1" method="post">
+    // <form action="http://localhost:3333/network/networkweb/create/1946/1/0bD7e56e2216450828E127ad2235B77e52C0fcb2" method="post">
     //   <div>
     //     <button>Send</button>
     //   </div>

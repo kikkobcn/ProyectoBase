@@ -7,6 +7,7 @@ const morgan = require("morgan") // https://expressjs.com/en/resources/middlewar
 const app = express()
 
 const networks = require("./router-network")
+const networksWeb = require("./router-networkweb")
 const node = require("./router-node")
 const faucet = require("./router-faucet")
 
@@ -18,6 +19,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use("/network", networks)
+app.use("/networkweb", networksWeb)
 app.use("/node", node)
 app.use("/faucet", faucet)
 
