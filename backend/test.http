@@ -1,6 +1,6 @@
-POST http://localhost:3333/networkweb/create/1946/1/0bD7e56e2216450828E127ad2235B77e52C0fcb2 
+POST http://localhost:3333/networkweb/create/5/1/0bD7e56e2216450828E127ad2235B77e52C0fcb2/9666/10000 
 ###
-POST http://localhost:3333/networkweb/add/1989/3
+POST http://localhost:3333/networkweb/add/3/3
 
 
 ###

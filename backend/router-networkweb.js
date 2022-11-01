@@ -13,66 +13,83 @@ const BALANCE ="0x20000000000000000000000000000000000000000000000000000000000000
 //const MICUENTA = "BEb2f649a3A14866D06D41Baaba7Db25b7638B0E"    //Account 1 Goerli
 //+++++++++++++++++++++ R U T A S +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //Creaccion red/nodo------------------------------------------------------------
-router.post("/create/:network/:node/:metamaskid", (req, res) => {
-  const NUMERO_NETWORK = parseInt(req.params.network);
-  const NUMERO_NODO = parseInt(req.params.node);
-  const METAMASKID = req.params.metamaskid;
-  const parametros = generateParameter(NUMERO_NETWORK, NUMERO_NODO);
-
-  const {
-    NETWORK_DIR,
-    DIR_NODE,
-    NETWORK_CHAINID,
-    AUTHRPC_PORT,
-    HTTP_PORT,
-    PORT,
-    IPCPATH,
-  } = parametros;
-
-  createIfNotExists("ETH");
-  deleteIfExists(NETWORK_DIR);
-  createIfNotExists(NETWORK_DIR);
-  createIfNotExists(DIR_NODE);
-
-  const CUENTA = createAccount(DIR_NODE);
-  const CUENTAS_ALLOC = [CUENTA, METAMASKID];
-  //LLama a la funcion de creaccion genesis.json(igual para todos los nodos)
-  generateGenesis(NETWORK_CHAINID, CUENTA, BALANCE, CUENTAS_ALLOC, NETWORK_DIR);
-
-  // INICIALIZAMOS EL NODO
-  const comando = `geth --datadir ${DIR_NODE} init ${NETWORK_DIR}/genesis.json`;
-
-  const result = exec(comando, (error, stdout, stderr) => {
-    console.log("ejecutado");
-    if (error) {
-      res.send({ error });
-      return;
-    }
-    const resultado = launchNode(
+router.post(
+  "/create/:network/:node/:metamaskid/:metamaskport/:chainID",
+  (req, res) => {
+    const NUMERO_NETWORK = parseInt(req.params.network);
+    const NUMERO_NODO = parseInt(req.params.node);
+    const METAMASKID = req.params.metamaskid;
+    const META_PORT = parseInt(req.params.metamaskport);
+    const CHAIN_ID = parseInt(req.params.chainID);
+    const parametros = generateParameter(
       NUMERO_NETWORK,
       NUMERO_NODO,
-      DIR_NODE,
-      NETWORK_DIR,
-      IPCPATH,
-      NETWORK_CHAINID,
-      HTTP_PORT,
-      CUENTA,
-      PORT,
-      AUTHRPC_PORT,
-      BALANCE,
-      CUENTAS_ALLOC
+      META_PORT,
+      CHAIN_ID
     );
 
-    res.send(resultado);
-  });
-});
-function generateParameter(network, node) {
+    const {
+      NETWORK_DIR,
+      DIR_NODE,
+      NETWORK_CHAINID,
+      AUTHRPC_PORT,
+      HTTP_PORT,
+      PORT,
+      IPCPATH,
+    } = parametros;
+
+    createIfNotExists("ETH");
+    deleteIfExists(NETWORK_DIR);
+    createIfNotExists(NETWORK_DIR);
+    createIfNotExists(DIR_NODE);
+
+    const CUENTA = createAccount(DIR_NODE);
+    const CUENTAS_ALLOC = [CUENTA, METAMASKID];
+    //LLama a la funcion de creaccion genesis.json(igual para todos los nodos)
+    generateGenesis(
+      NETWORK_CHAINID,
+      CUENTA,
+      BALANCE,
+      CUENTAS_ALLOC,
+      NETWORK_DIR
+    );
+
+    // INICIALIZAMOS EL NODO
+    const comando = `geth --datadir ${DIR_NODE} init ${NETWORK_DIR}/genesis.json`;
+
+    const result = exec(comando, (error, stdout, stderr) => {
+      console.log("ejecutado");
+      if (error) {
+        res.send({ error });
+        return;
+      }
+      const resultado = launchNode(
+        NUMERO_NETWORK,
+        NUMERO_NODO,
+        DIR_NODE,
+        NETWORK_DIR,
+        IPCPATH,
+        NETWORK_CHAINID,
+        HTTP_PORT,
+        CUENTA,
+        PORT,
+        AUTHRPC_PORT,
+        BALANCE,
+        CUENTAS_ALLOC
+      );
+
+      res.send(resultado);
+    });
+  }
+);
+function generateParameter(network, node, metamaskport, chainId) {
   const NUMERO_NETWORK = parseInt(network);
   const NUMERO_NODO = parseInt(node);
   const NODO = `nodo${NUMERO_NODO}`;
   const NETWORK_DIR = `ETH/eth${NUMERO_NETWORK}`;
-  const NETWORK_CHAINID = 99999 + NUMERO_NETWORK;
-  const HTTP_PORT = 9545 + NUMERO_NODO + NUMERO_NETWORK * 20;
+  const NETWORK_CHAINID = parseInt(chainId);
+  +NUMERO_NETWORK;
+  const HTTP_PORT = parseInt(metamaskport);
   const DIR_NODE = `${NETWORK_DIR}/${NODO}`;
   //cambiamos el pipe para que todos los nodos puedan ser inicializados
   const IPCPATH = `\\\\.\\pipe\\${NETWORK_CHAINID}-${NODO}.ipc`;
