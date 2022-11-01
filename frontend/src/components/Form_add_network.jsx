@@ -6,9 +6,9 @@ export function Form_add_network() {
     <Form>
       <fieldset disabled>
         <Form.Group className="mb-3">
-          <Form.Label htmlFor="disabledTextInput">Chain ID</Form.Label>
-          <Form.Control id="disabledTextInput" placeholder="Disabled input" />
-          <Form.Label htmlFor="disabledTextInput">
+          <Form.Label htmlFor="TextInput">Chain ID</Form.Label>
+          <Form.Control id="TextInput" placeholder="Disabled input" />
+          <Form.Label htmlFor="TextInput">
             Metamask Account sin 0x
           </Form.Label>
           <Form.Control id="disabledTextInput" placeholder="Disabled input" />
