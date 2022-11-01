@@ -13,7 +13,7 @@ DELETE http://localhost:3333/node/2/1 HTTP/1.1
 delete http://localhost:3333/network/1
 
 ###
-get http://localhost:3333/network/procesos/19
+get http://localhost:3333/network/procesos/20
 
 ### 
 get http://localhost:3333/network/reload/20
@@ -22,4 +22,4 @@ get http://localhost:3333/network/reload/20
 get http://localhost:3333/network
 
 ### Listado nodos
-get http://localhost:3333/network/1
+get http://localhost:3333/network
