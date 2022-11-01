@@ -21,13 +21,9 @@ export const App = () => {
               element={<NetworksBody></NetworksBody>}
             ></Route>
             <Route
-              path="/Form_add_node"
-              element={<Form_add_node></Form_add_node>}
-            ></Route>    
-            <Route
               path="/Form_add_network"
               element={<Form_add_network></Form_add_network>}
-            ></Route>        
+            ></Route>
             <Route
               path="/Form_Faucet"
               element={<Form_Faucet></Form_Faucet>}
