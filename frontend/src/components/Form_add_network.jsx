@@ -6,6 +6,7 @@ import ReactDOM from "react-dom/client";
 export function Form_add_network() {
   const [network, setNetwork] = useState("");
   const [node, setNode] = useState("");
+  const [metamaskid, setMetamask] = useState("");
   return (
     <form action="http://localhost:3333/network/create/" method="post">
       <label>
@@ -29,7 +30,7 @@ export function Form_add_network() {
         <input
           type="text"
           value={metamaskid}
-          onChange={(e) => setNode(e.target.value)}
+          onChange={(e) => setMetamask(e.target.value)}
         />
       </label>
       <div>
