@@ -31,6 +31,9 @@ export const Header = () => {
               <Nav.Link as={Link} to="/Form_add_network">
                 Add Network
               </Nav.Link>
+              <Nav.Link as={Link} to="/Form_delete_network">
+                Delete Network
+              </Nav.Link>
               <Nav.Link as={Link} to="/Form_Faucet">
                 Faucet
               </Nav.Link>

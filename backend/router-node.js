@@ -4,6 +4,8 @@ const fs = require("fs")
 module.exports =  router
 
 router.post("/add/:network", (req, res) => {
+    const NUMERO_NETWORK = parseInt(req.params.network)
+    
     res.status(500).send("Not implemented ")
 })
 

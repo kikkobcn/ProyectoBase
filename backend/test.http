@@ -1,6 +1,6 @@
 POST http://localhost:3333/networkweb/create/5/1/0bD7e56e2216450828E127ad2235B77e52C0fcb2/9666/10000 
 ###
-POST http://localhost:3333/networkweb/add/3/3
+POST http://localhost:3333/networkweb/add/3/4
 
 
 ###
@@ -10,10 +10,10 @@ POST http://localhost:3333/network/add/20/2
 POST http://localhost:3333/network/add/8/4
 
 ###
-DELETE http://localhost:3333/node/2/1 HTTP/1.1
+DELETE http://localhost:3333/node/2/2 HTTP/1.1
 
 ###
-delete http://localhost:3333/network/1
+delete http://localhost:3333/networkweb/delete/1946
 
 ###
 get http://localhost:3333/network/procesos/20

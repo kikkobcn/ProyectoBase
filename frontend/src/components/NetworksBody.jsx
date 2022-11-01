@@ -29,7 +29,12 @@ export const NetworksBody = () => {
                 <p>
                     <button type="button" className="btn btn-light btn-sm m-2">Add Network</button>
                 </p>
-                </div>   
+            </div> 
+            <div className='text-end'>
+                <p>
+                    <button type="button" className="btn btn-light btn-sm m-2">Delete Network</button>
+                </p>
+            </div>  
             <Table borderless className='text-left' id='networks-table'>
                 <thead>
                     <tr>

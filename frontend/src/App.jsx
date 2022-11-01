@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { HomeBody } from "./components/HomeBody";
 import { NetworksBody } from "./components/NetworksBody";
 import { Form_add_network } from "./components/Form_add_network";
+import { Form_delete_network } from "./components/Form_delete_network";
 import { Form_Faucet } from "./components/Form_Faucet";
 import { Home } from "./Home";
 import { QueryClientProvider, QueryClient } from "react-query";
@@ -23,6 +24,10 @@ export const App = () => {
             <Route
               path="/Form_add_network"
               element={<Form_add_network></Form_add_network>}
+            ></Route>
+            <Route
+              path="/Form_delete_network"
+              element={<Form_delete_network></Form_delete_network>}
             ></Route>
             <Route
               path="/Form_Faucet"
