@@ -3,28 +3,11 @@ import Form from "react-bootstrap/Form";
 
 export function Form_add_network() {
   return (
-    <Form>
-      <fieldset disabled>
-        <Form.Group className="mb-3">
-          <Form.Label htmlFor="TextInput">Chain ID</Form.Label>
-          <Form.Control id="TextInput" placeholder="Disabled input" />
-          <Form.Label htmlFor="TextInput">
-            Metamask Account sin 0x
-          </Form.Label>
-          <Form.Control id="disabledTextInput" placeholder="Disabled input" />
-          <Form.Label htmlFor="disabledTextInput">Network Name</Form.Label>
-          <Form.Control id="disabledTextInput" placeholder="Disabled input" />
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Check
-            type="checkbox"
-            id="disabledFieldsetCheck"
-            label="Can't check this"
-          />
-        </Form.Group>
-        <Button type="submit">Submit</Button>
-      </fieldset>
-    </Form>
+    <form action="http://localhost:3333/network/create/7777/1" method="post">
+      <div>
+        <button>Send</button>
+      </div>
+    </form>
   );
 }
 
