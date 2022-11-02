@@ -281,29 +281,17 @@ router.get("/procesos/:network", async (req, res) => {
     const NETWORK_DIR = `ETH/eth${NUMERO_NETWORK}`
     const nodos = fs.readdirSync(NETWORK_DIR, { withFileTypes: true }).filter(i => !i.isFile())
     const output = nodos.map(i => JSON.parse(fs.readFileSync(`${NETWORK_DIR}/${i.name}/paramsNodo.json`)))
-    return {
-            numeroRed: paramsNodo.nodo.network, chainId: paramsNodo.nodo.chainId,numeroNodo: paramsNodo.nodo.nodo, puerto: paramsNodo.nodo.http_port
-    }
-    
-    res.send(output)
+    res.json(JSON.stringify(output))
 })
 
 // Listado redes
 router.get("/", async (req, res) => {
     // const NETWORK_DIR = "ETH"
     const redes = fs.readdirSync("ETH", { withFileTypes: true }).filter(i => !i.isFile())
-    console.log(redes)
     const output = redes.map(i => {
         const genesis = JSON.parse(fs.readFileSync(`ETH/${i.name}/genesis.json`))
-        const cuentas = Object.keys(genesis.alloc);
-        const numRed = (`${i.name}`.slice(3,item.numero.length))
-        return {
-            numero: i.name,
-            progRed: numRed,
-            chainId: genesis.config.chainId,
-            cuentas: cuentas
-        }
-        
+        const cuentas =Object.keys(genesis.alloc)
+        return {numero: i.name, chainId: genesis.config.chainId, cuentas: cuentas }
     })
     res.send(output)
 })
@@ -318,11 +306,9 @@ router.get("/:network", async (req, res) => {
     const output = nodos.map(i => {
         const paramsNodo = JSON.parse(fs.readFileSync(`${NETWORK_DIR}/${i.name}/paramsNodo.json`))
         return {
-            numeroNodo: paramsNodo.nodo.nodo,
-            numeroRed: paramsNodo.nodo.network,chainId: paramsNodo.nodo.chainId,
-            puertoHttp: paramsNodo.nodo.http_port,
-            puerto:paramsNodo.nodo.port
+            numeroRed: paramsNodo.nodo.network, chainId: paramsNodo.nodo.chainId,numeroNodo: paramsNodo.nodo.nodo, puerto: paramsNodo.nodo.http_port
         }
     })
-    res.send(output)
+
+    res.json(output)
 })
