@@ -27,7 +27,7 @@ export const NetworksBody = () => {
     <div className="container text-light">
             <div className='text-end'>
                 <p>
-                    <button type="button" className="btn btn-light btn-sm m-2">Add Network</button>
+                    <Link to ="/Form_add_network">Nueva Red</Link>
                 </p>
             </div> 
             <div className='text-end'>
@@ -68,11 +68,7 @@ export const NetworksBody = () => {
         </div>
     );
 }
-/*
-        function nred(){
-            return numRed={item.numero}.substring(2,1)
-        }
-; //  
-*/
+
+
 
 

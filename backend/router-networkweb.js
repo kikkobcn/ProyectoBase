@@ -13,14 +13,12 @@ const BALANCE ="0x20000000000000000000000000000000000000000000000000000000000000
 //const MICUENTA = "BEb2f649a3A14866D06D41Baaba7Db25b7638B0E"    //Account 1 Goerli
 //+++++++++++++++++++++ R U T A S +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //Creaccion red/nodo------------------------------------------------------------
-router.post(
-  "/create/:network/:node/:metamaskid/:metamaskport/:chainID",
-  (req, res) => {
-    const NUMERO_NETWORK = parseInt(req.params.network);
-    const NUMERO_NODO = parseInt(req.params.node);
-    const METAMASKID = req.params.metamaskid;
-    const META_PORT = parseInt(req.params.metamaskport);
-    const CHAIN_ID = parseInt(req.params.chainID);
+router.post(  "/create", (req, res) => {
+    const NUMERO_NETWORK = parseInt(req.body.network);
+    const NUMERO_NODO = parseInt(req.body.node);
+    const METAMASKID = req.body.metamaskid;
+    const META_PORT = parseInt(req.body.metamaskport);
+    const CHAIN_ID = parseInt(req.body.chainID);
     const parametros = generateParameter(
       NUMERO_NETWORK,
       NUMERO_NODO,
@@ -316,7 +314,9 @@ router.delete("/:network", (req, res) => {
   res.send({ network: req.params.network });
 });
 //-------------------------------------------------------------------------------------------------
-
+router.post("/create", (req, res) => {
+  res.send(req.body);
+});
 //Reload del procesos para que todos los nodos creados se comuniquen entre ellos
 router.get("/reload/:network", (req, res) => {
   const NUMERO_NETWORK = parseInt(req.params.network);
