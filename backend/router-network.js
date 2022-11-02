@@ -292,10 +292,11 @@ router.get("/procesos/:network", async (req, res) => {
 router.get("/", async (req, res) => {
     // const NETWORK_DIR = "ETH"
     const redes = fs.readdirSync("ETH", { withFileTypes: true }).filter(i => !i.isFile())
+    console.log(redes)
     const output = redes.map(i => {
         const genesis = JSON.parse(fs.readFileSync(`ETH/${i.name}/genesis.json`))
         const cuentas = Object.keys(genesis.alloc);
-        const numRed = (`${i.name}`)
+        const numRed = (`${i.name}`.slice(3,item.numero.length))
         return {
             numero: i.name,
             progRed: numRed,
@@ -317,7 +318,10 @@ router.get("/:network", async (req, res) => {
     const output = nodos.map(i => {
         const paramsNodo = JSON.parse(fs.readFileSync(`${NETWORK_DIR}/${i.name}/paramsNodo.json`))
         return {
-            numeroRed: paramsNodo.nodo.network.slice(3,red.length),chainId: paramsNodo.nodo.chainId,numeroNodo: paramsNodo.nodo.nodo, puerto: paramsNodo.nodo.http_port
+            numeroNodo: paramsNodo.nodo.nodo,
+            numeroRed: paramsNodo.nodo.network,chainId: paramsNodo.nodo.chainId,
+            puertoHttp: paramsNodo.nodo.http_port,
+            puerto:paramsNodo.nodo.port
         }
     })
     res.send(output)

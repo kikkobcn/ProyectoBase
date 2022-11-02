@@ -20,7 +20,7 @@ export const ModalDelete = () => {
                 </Modal.Header>
                 <Modal.Body>
                 <Button className='bg-danger'>Borrar</Button>
-                <Button className='bg-secondary' onClick={() => setLgShow(false)}>Cancelar</Button>
+                {/* <Button className='bg-secondary' onClick={() => setLgShow(false)}>Cancelar</Button> */}
                 </Modal.Body>
             </Modal>
         </>

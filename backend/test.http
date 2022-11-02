@@ -25,4 +25,4 @@ get http://localhost:3333/network/reload/20
 get http://localhost:3333/network
 
 ### Listado nodos
-get http://localhost:3333/network
+get http://localhost:3333/network/1
