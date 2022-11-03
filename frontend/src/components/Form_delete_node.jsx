@@ -31,7 +31,7 @@ export const Form_delete_node = () => {
     mutation.mutate(data);
   };
   return (<div>
-    {mensaje != "" ? <p className="alert alert-danger">{mensaje}</p>:""}
+    {mensaje != "" ? <p className="alert alert-danger">Nodo eliminado:{mensaje}</p>: ""}
       <form onSubmit={handleSubmit((data) => submit(data))}>
         <div>
           <label>Network number</label>

@@ -3,7 +3,35 @@ const router = express.Router()
 const fs = require("fs")
 module.exports =  router
 
-router.post("/add", (req, res) => {
+const { exec, execSync, spawn, spawnSync } = require("child_process");
+const { send } = require("process");
+
+const PASSWORD = "123456";
+const BALANCE ="0x200000000000000000000000000000000000000000000000000000000000000";
+
+function generateParameter(network, node) {
+    const NUMERO_NETWORK = parseInt(network);
+    const NUMERO_NODO = parseInt(node);
+    const NODO = `nodo${NUMERO_NODO}`;
+    const NETWORK_DIR = `ETH/eth${NUMERO_NETWORK}`;
+    +NUMERO_NETWORK;
+    const DIR_NODE = `${NETWORK_DIR}/${NODO}`;
+    //cambiamos el pipe para que todos los nodos puedan ser inicializados
+    const PORT = 30404 + NUMERO_NODO + NUMERO_NETWORK * 20;
+    const AUTHRPC_PORT = 9553 + NUMERO_NODO + NUMERO_NETWORK * 20;
+  
+    return {
+      NUMERO_NETWORK,
+      NUMERO_NODO,
+      NODO,
+      NETWORK_DIR,
+      DIR_NODE,
+      PORT,
+      AUTHRPC_PORT,
+    };
+  }
+
+router.post(  "/add", (req, res) => {
     const NUMERO_NETWORK = parseInt(req.body.network)
     const NUMERO_NODO = parseInt(req.body.node);
     const parametros = generateParameter(NUMERO_NETWORK, NUMERO_NODO);
