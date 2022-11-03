@@ -2,9 +2,12 @@ POST http://localhost:3333/networkweb/create/5/1/0bD7e56e2216450828E127ad2235B77
 ###
 POST http://localhost:3333/networkweb/add/3/4
 
-
 ###
-POST http://localhost:3333/network/add/20/2
+POST http://localhost:3333/node/add/1/3
+###
+POST http://localhost:3333/node/delete/1/2
+###
+POST http://localhost:3333/network/add/1/2
 
 ###
 POST http://localhost:3333/network/add/8/4

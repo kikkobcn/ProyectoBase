@@ -34,6 +34,12 @@ export const Header = () => {
               <Nav.Link as={Link} to="/Form_delete_network">
                 Delete Network
               </Nav.Link>
+              {/* <Nav.Link as={Link} to="/Form_add_node">
+                Add Node
+              </Nav.Link>
+              <Nav.Link as={Link} to="/Form_delete_node">
+                Delete Node
+              </Nav.Link> */}
               <Nav.Link as={Link} to="/Form_Faucet">
                 Faucet
               </Nav.Link>
