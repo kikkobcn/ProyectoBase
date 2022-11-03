@@ -32,7 +32,7 @@ export function Form_delete_network() {
   };
   return (
     <div>
-      {mensaje != "" ? <p className="alert alert-danger">{mensaje}</p> : ""}
+      {mensaje != "" ? <p className="alert alert-danger">Red eliminada:{mensaje}</p> : ""}
       <form onSubmit={handleSubmit((data) => submit(data))}>
         <div>
           <label>Network number</label>
