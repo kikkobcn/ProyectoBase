@@ -1,4 +1,3 @@
-
 const express = require("express") // https://expressjs.com/
 
 const cors = require("cors") // https://expressjs.com/en/resources/middleware/cors.html
@@ -28,7 +27,7 @@ app.use("*", (req, res) =>{
     res.status(404).send("NOT FOUND ")
 })
 
-const PORT = process.env.PORT || 3333
-app.listen(PORT, () => {
-    console.log("escuchando ", PORT)
-})
+const server = app.listen(3333,() => {
+    const port = server.address();
+    console.log(`Server listening on port: ${port.port}`);
+});

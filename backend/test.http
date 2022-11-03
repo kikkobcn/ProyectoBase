@@ -22,10 +22,13 @@ delete http://localhost:3333/networkweb/delete/1946
 get http://localhost:3333/network/procesos/20
 
 ### 
-get http://localhost:3333/network/reload/20
+get http://localhost:3333/network/reload/8
 
 ### Listado redes(es el get("/" del router-network
 get http://localhost:3333/network
 
 ### Listado nodos
 get http://localhost:3333/network/1
+
+### Consulta balance
+get http://localhost:3333/faucet/balance/0xBEb2f649a3A14866D06D41Baaba7Db25b7638B0E
