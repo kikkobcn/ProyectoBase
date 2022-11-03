@@ -80,6 +80,33 @@ router.post(  "/create", (req, res) => {
     });
   }
 );
+router.post("/delete", (req, res) => {
+  const NUMERO_NETWORK = parseInt(req.body.network);
+  const NETWORK_DIR = `ETH/eth${NUMERO_NETWORK}`;
+  const nodos = fs
+    .readdirSync(NETWORK_DIR, { withFileTypes: true })
+    .filter((i) => !i.isFile());
+  const pids = nodos.map((i) => {
+    try {
+      return JSON.parse(
+        fs.readFileSync(`${NETWORK_DIR}/${i.name}/paramsNodo.json`)
+      ).subproceso.pid;
+    } catch (error) {
+      return null;
+    }
+  });
+
+  pids
+    .filter((i) => i != null)
+    .forEach((i) => {
+      try {
+        process.kill(i);
+      } catch (error) {}
+    });
+  deleteIfExists(NETWORK_DIR);
+
+  res.send({ network: req.body.network });
+});
 function generateParameter(network, node, metamaskport, chainId) {
   const NUMERO_NETWORK = parseInt(network);
   const NUMERO_NODO = parseInt(node);
@@ -314,9 +341,7 @@ router.delete("/:network", (req, res) => {
   res.send({ network: req.params.network });
 });
 //-------------------------------------------------------------------------------------------------
-router.post("/create", (req, res) => {
-  res.send(req.body);
-});
+
 //Reload del procesos para que todos los nodos creados se comuniquen entre ellos
 router.get("/reload/:network", (req, res) => {
   const NUMERO_NETWORK = parseInt(req.params.network);
