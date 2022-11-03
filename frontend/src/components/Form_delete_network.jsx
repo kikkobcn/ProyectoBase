@@ -1,7 +1,4 @@
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import { useState } from "react";
-import ReactDOM from "react-dom/client";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 
@@ -31,19 +28,22 @@ export function Form_delete_network() {
     mutation.mutate(data);
   };
   return (
-    <div>
-      {mensaje != "" ? <p className="alert alert-danger">Red eliminada:{mensaje}</p> : ""}
+    <div className="container text-light">
+    <div className='network-container bg-dark mt-2 p-3'>
       <form onSubmit={handleSubmit((data) => submit(data))}>
-        <div>
+        <div className="mb-4">
           <label>Network number</label>
           <input
+            type = "number"
             className="form-control"
             defaultValue="1989"
             {...register("network", { required: true })}
           />
         </div>
-        <input type="submit" value="borrar red" />
+        <input className="btn btn-danger mb-4" type="submit" value="Borrar Red" />
       </form>
+      {mensaje != "" ? <p className="alert alert-danger">Red eliminada:{mensaje}</p> : ""}
+      </div>
     </div>
   );
 

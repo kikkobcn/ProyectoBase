@@ -1,7 +1,4 @@
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import { useState } from "react";
-import ReactDOM from "react-dom/client";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 
@@ -87,7 +84,7 @@ export const Form_add_network = () => {
       </form>
       {mensaje != "" ? 
       <p className="alert alert-success">
-        Red creada correctamente!!! Datos: {mensaje}
+         {"Red creada correctamente!!! Datos:" + mensaje}
         </p>
         :""}
       </div>

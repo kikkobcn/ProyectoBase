@@ -1,7 +1,4 @@
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import { useState } from "react";
-import ReactDOM from "react-dom/client";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 
@@ -30,8 +27,9 @@ export const Form_add_node = () => {
   const submit = (data) => {
     mutation.mutate(data);
   };
-  return (<div>
-    {mensaje != "" ? <p className="alert alert-danger">{mensaje}</p>:""}
+  return (<div className="container text-light">
+    <div className='network-container bg-dark mt-2 p-3'>
+
       <form onSubmit={handleSubmit((data) => submit(data))}>
         <div>
           <label>Network number</label>
@@ -49,9 +47,11 @@ export const Form_add_node = () => {
             {...register('node', { required: true })}
           />
         </div>
-        <input type="submit" value="enviar" />
+        <input className="btn btn-primary my-2" type="submit" value="Añadir nodo" />
       </form>
+      {mensaje != "" ? <p className="alert alert-success">{mensaje}</p> : ""}
     </div>
+  </div>
   )
 }
 export default Form_add_node;
